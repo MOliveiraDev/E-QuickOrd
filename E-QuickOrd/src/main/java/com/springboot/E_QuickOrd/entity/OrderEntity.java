@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,7 +30,25 @@ public class OrderEntity {
         @Column(nullable = false)
         private OrderStatus status;
 
-        @ManyToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 
+        @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<OrderItemEntity> items = new ArrayList<>();
+
+        @Column(nullable = false)
+        private BigDecimal totalPrice;
+
+        public void addItem(OrderItemEntity item) {
+                items.add(item);
+                item.setOrder(this);
+                calculateTotalPrice();
+
+        }
+
+        //calcular o preço total do pedido
+        public void calculateTotalPrice() {
+                totalPrice = items.stream()
+                        .map(OrderItemEntity::getTotalPrice)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
 }
 

@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -23,6 +26,8 @@ public class CustomerEntity {
         @Column(nullable = false)
         private String address;
 
+        @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<OrderEntity> orders = new ArrayList<>();
 
 }
 
