@@ -29,4 +29,7 @@ public class Produto {
     @Column(nullable = false)
     private Integer quantidadeEstoque;
 
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
 }
