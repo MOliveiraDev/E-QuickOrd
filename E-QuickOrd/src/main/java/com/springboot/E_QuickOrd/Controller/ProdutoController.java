@@ -2,14 +2,14 @@ package com.springboot.E_QuickOrd.Controller;
 
 import com.springboot.E_QuickOrd.Model.Produto;
 import com.springboot.E_QuickOrd.Service.ProdutoService;
-import lombok.RequiredArgsConstructor;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/E-Order/produtos")
-@RequiredArgsConstructor
+@Builder
 public class ProdutoController {
 
     private final ProdutoService produtoService;
